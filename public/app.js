@@ -7,7 +7,7 @@ function getArticles (){
   for (var i = 0; i < data.length; i++) {
     // Display the apropos information on the page
     // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
-    $(".collection").prepend("<li class='collection-item' data-id='" + data[i]._id + "'>"+ data[i].title +"<br> <a class='waves-effect waves-light btn-small'><i class='material-icons left'>favorite</i>Save</a>  <a class='waves-effect waves-light btn-small'><i class='material-icons left'>notes</i>Notes</a></li>");
+    $(".collection").prepend("<li class='collection-item'>"+ data[i].title +"<br> <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small save-button'><i class='material-icons left'>favorite</i>Save</a>  <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small note-button'><i class='material-icons left'>notes</i>Notes</a></li>");
 
   }
 });
@@ -28,13 +28,12 @@ $( "#scrape_button" ).click(function() {
 
 // Whenever someone clicks a p tag
 
-$(document).on("click", "li", function() {
-  // Empty the notes from the note section
+$("body").on('click', '.note-button', function () {
   $("#notes").empty();
-  // Save the id from the p tag
+//   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
 
-  // Now make an ajax call for the Article
+//   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
     url: "/articles/" + thisId
@@ -61,8 +60,10 @@ $(document).on("click", "li", function() {
     });
 });
 
+
+
 // When you click the savenote button
-$(document).on("click", "#savenote", function() {
+$("body").on('click', '.save-button', function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
