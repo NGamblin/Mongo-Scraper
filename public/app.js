@@ -1,12 +1,10 @@
-// Grab the articles as a json
+
 function getArticles (){
-  $("#articles").append("<ul class='collection'></ul>")
+  $(".collection").empty();
 
   $.getJSON("/articles", function(data) {
-  // For each one
   for (var i = 0; i < data.length; i++) {
-    // Display the apropos information on the page
-    // $("#articles").append("<p data-id='" + data[i]._id + "'>" + data[i].title + "<br />" + data[i].link + "</p>");
+
     $(".collection").prepend("<li class='collection-item'>"+ data[i].title +"<br> <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small save-button'><i class='material-icons left'>favorite</i>Save</a>  <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small note-button'><i class='material-icons left'>notes</i>Notes</a></li>");
 
   }
@@ -19,14 +17,12 @@ $( "#scrape_button" ).click(function() {
     url: "/scrape"
 })
     .then(function (data) {
-        // Log the response
         console.log(data);
         getArticles();
         }
 )});
 
 
-// Whenever someone clicks a p tag
 
 $("body").on('click', '.note-button', function () {
   $("#notes").empty();
@@ -63,7 +59,7 @@ $("body").on('click', '.note-button', function () {
 
 
 // When you click the savenote button
-$("body").on('click', '.save-button', function () {
+$("body").on('click', '.savenote', function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
