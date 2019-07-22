@@ -28,13 +28,13 @@ $("body").on('click', '.note-button', function () {
   $("#notes").empty();
 //   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
+  console.log(thisId)
 
 //   // Now make an ajax call for the Article
   $.ajax({
     method: "GET",
     url: "/articles/" + thisId
   })
-    // With that done, add the note information to the page
     .then(function(data) {
       console.log(data);
       // The title of the article
@@ -59,7 +59,7 @@ $("body").on('click', '.note-button', function () {
 
 
 // When you click the savenote button
-$("body").on('click', '.savenote', function () {
+$("body").on('click', '#savenote', function () {
   // Grab the id associated with the article from the submit button
   var thisId = $(this).attr("data-id");
 
@@ -86,4 +86,6 @@ $("body").on('click', '.savenote', function () {
   $("#titleinput").val("");
   $("#bodyinput").val("");
 });
+getArticles();
+
 

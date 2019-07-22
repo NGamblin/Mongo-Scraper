@@ -27,11 +27,11 @@ mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
 // Routes
 
 app.get("/scrape", function(req, res) {
-  axios.get("http://www.echojs.com/").then(function(response) {
+  axios.get("https://www.chicagotribune.com/news/breaking/").then(function(response) {
 
     var $ = cheerio.load(response.data);
 
-    $("article h2").each(function(i, element) {
+    $("h5").each(function(i, element) {
       var result = {};
 
       result.title = $(this)
