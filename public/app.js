@@ -1,4 +1,4 @@
-
+//Retrive articles from the database update the article
 function getArticles (){
   $(".collection").empty();
 
@@ -26,7 +26,6 @@ $( "#scrape_button" ).click(function() {
 
 $("body").on('click', '.note-button', function () {
   $("#notes").empty();
-//   // Save the id from the p tag
   var thisId = $(this).attr("data-id");
   console.log(thisId)
 
@@ -53,6 +52,21 @@ $("body").on('click', '.note-button', function () {
         // Place the body of the note in the body textarea
         $("#bodyinput").val(data.note.body);
       }
+    });
+});
+
+$("body").on('click', '.save-button', function () {
+  var thisId = $(this).attr("data-id");
+  console.log(thisId)
+
+  // Now make an ajax call for the Article
+  $.ajax({
+    method: "POST",
+    url: "/articles/save/" + thisId
+  })
+    .then(function(data) {
+      console.log(data);
+
     });
 });
 
