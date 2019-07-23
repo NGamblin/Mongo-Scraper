@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
@@ -11,7 +13,7 @@ var cheerio = require("cheerio");
 // Require all models
 var db = require("./models");
 
-var PORT = 3000;
+var port = process.env.PORT || 3000;
 
 var app = express();
 
@@ -21,8 +23,13 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(express.static("public"));
 
+var MONGODB_URI = (process.env.MONGODB_URI || "mongodb://localhost/test");
+
+mongoose.connect(MONGODB_URI);
+
+
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
+// mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
 
 // Routes
 
@@ -141,6 +148,6 @@ app.delete("/note/delete/:id", function(req, res) {
 })
 
 // Start the server
-app.listen(PORT, function() {
-  console.log("App running on port " + PORT + "!");
+app.listen(port, function() {
+  console.log("App running on port " + port + "!");
 });
