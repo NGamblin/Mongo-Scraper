@@ -2,9 +2,11 @@
 //Get Articles from the DB
 
 function getArticles (){
+  $("#articles_main_heading").empty();
+  $("#articles_main_heading").append("Mongo Scraper");
+  articles_main_heading
   $(".collection").empty();
   $("#notes").empty();
-
   $.getJSON("/articles", function(data) {
   for (var i = 0; i < data.length; i++) {
 
@@ -18,6 +20,8 @@ function getArticles (){
 //Get saved Articles from the DB
 
 function getSavedArticles (){
+  $("#articles_main_heading").empty();
+  $("#articles_main_heading").append("Saved Articles");
   $(".collection").empty();
   $("#notes").empty();
 
