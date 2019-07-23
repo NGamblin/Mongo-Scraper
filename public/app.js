@@ -1,6 +1,7 @@
 //Retrive articles from the database update the article
 function getArticles (){
   $(".collection").empty();
+  $("#notes").empty();
 
   $.getJSON("/articles", function(data) {
   for (var i = 0; i < data.length; i++) {
@@ -11,15 +12,46 @@ function getArticles (){
 });
 };
 
+function getSavedArticles (){
+  $(".collection").empty();
+  $("#notes").empty();
+
+  $.getJSON("/articles/saved", function(data) {
+  for (var i = 0; i < data.length; i++) {
+    $(".collection").prepend("<li class='collection-item'>"+ data[i].title +"<br> <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small save-button'><i class='material-icons left'>favorite</i>Save</a>  <a data-id='" + data[i]._id + "' class='waves-effect waves-light btn-small note-button'><i class='material-icons left'>notes</i>Notes</a></li>");
+
+  }
+});
+};
+
 $( "#scrape_button" ).click(function() {
+  //empty collection and empty notes
+
   $.ajax({
     method: "GET",
     url: "/scrape"
 })
-    .then(function (data) {
-        console.log(data);
-        getArticles();
-        }
+  .then(function (data) {
+    $(".collection").empty();
+    $("#notes").empty();
+    console.log(data);
+    getArticles();
+  }
+)});
+
+$( "#saved_articles_button" ).click(function() {
+  //empty collection and empty notes
+
+  $.ajax({
+    method: "GET",
+    url: "/articles/saved"
+})
+  .then(function (data) {
+    $(".collection").empty();
+    $("#notes").empty();
+    console.log(data);
+    getSavedArticles();
+  }
 )});
 
 

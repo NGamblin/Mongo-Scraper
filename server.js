@@ -71,6 +71,16 @@ app.get("/articles", function(req, res) {
     });
 });
 
+app.get("/articles/saved", function(req, res) {
+  db.Article.find({saved : true})
+    .then(function(dbArticle) {
+      res.json(dbArticle);
+    })
+    .catch(function(err) {
+      res.json(err);
+    });
+});
+
 // Route for grabbing a specific Article by id, populate it with it's note
 app.get("/articles/:id", function(req, res) {
 
