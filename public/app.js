@@ -4,7 +4,6 @@
 function getArticles (){
   $("#articles_main_heading").empty();
   $("#articles_main_heading").append("Mongo Scraper");
-  articles_main_heading
   $(".collection").empty();
   $("#notes").empty();
   $.getJSON("/articles", function(data) {
@@ -148,9 +147,9 @@ $("body").on('click', '#deletenote', function () {
       $("#notes").empty();
     });
 
-  //   $("#titleinput").val("");
-  // $("#bodyinput").val("");
 });
+
+
 getArticles();
 
 

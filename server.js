@@ -4,13 +4,10 @@ var express = require("express");
 var logger = require("morgan");
 var mongoose = require("mongoose");
 
-// Our scraping tools
-// Axios is a promised-based http library, similar to jQuery's Ajax method
-// It works on the client and on the server
+
 var axios = require("axios");
 var cheerio = require("cheerio");
 
-// Require all models
 var db = require("./models");
 
 var port = process.env.PORT || 3000;
@@ -27,9 +24,6 @@ var MONGODB_URI = (process.env.MONGODB_URI || "mongodb://localhost/test");
 
 mongoose.connect(MONGODB_URI);
 
-
-// Connect to the Mongo DB
-// mongoose.connect("mongodb://localhost/test", { useNewUrlParser: true });
 
 // Routes
 
@@ -50,20 +44,17 @@ app.get("/scrape", function(req, res) {
 
         console.log(result)
 
-      // Create a new Article using the `result` object built from scraping
       db.Article.create(result)
         .then(function(dbArticle) {
-          // View the added result in the console
+
           console.log(dbArticle);
         })
         .catch(function(err) {
-          // If an error occurred, log it
+
           console.log(err);
         });
     });
 
-    // Send a message to the client
-    res.send("Scrape Complete");
   });
 });
 
@@ -101,6 +92,7 @@ app.get("/articles/:id", function(req, res) {
     });
 });
 
+//route for setting an article to saved = true
 app.post("/articles/save/:id", function(req, res){
   db.Article.findOneAndUpdate({_id: req.params.id},{$set:{saved:true}},{new:true})
   .then(function(dbArticle){
@@ -126,16 +118,6 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
-// app.post("/articles/delete/:id", function(req, res) {
-//   db.Article.findByIdAndUpdate({"_id": req.params.id}, {"saved": false})
-//   .then(function(error, data) {
-//       if (error) {
-//           console.log(error);
-//       } else {
-//           res.send(data)
-//     }
-//   })
-// })
 
 app.delete("/note/delete/:id", function(req, res) {
   db.Note.deleteOne({ _id: req.params.id})
