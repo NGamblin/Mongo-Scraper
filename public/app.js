@@ -85,7 +85,7 @@ $("body").on('click', '.note-button', function () {
       $("#notes").append("<input id='titleinput' name='title' >");
       $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
       $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
-      $("#notes").append("<button data-id='" + data._id + "' id='deletenote'>Delete Note</button>");
+      $("#notes").append("<button data-id='" + data.note._id + "' id='deletenote'>Delete Note</button>");
 
       if (data.note) {
         $("#titleinput").val(data.note.title);
@@ -133,6 +133,23 @@ $("body").on('click', '#savenote', function () {
 
     $("#titleinput").val("");
   $("#bodyinput").val("");
+});
+
+$("body").on('click', '#deletenote', function () {
+  var thisId = $(this).attr("data-id");
+
+  $.ajax({
+    url: "/note/delete/" + thisId,
+    method: "DELETE"
+  })
+    .then(function(data) {
+      console.log(data);
+
+      $("#notes").empty();
+    });
+
+  //   $("#titleinput").val("");
+  // $("#bodyinput").val("");
 });
 getArticles();
 

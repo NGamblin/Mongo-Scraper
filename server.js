@@ -119,6 +119,27 @@ app.post("/articles/:id", function(req, res) {
     });
 });
 
+// app.post("/articles/delete/:id", function(req, res) {
+//   db.Article.findByIdAndUpdate({"_id": req.params.id}, {"saved": false})
+//   .then(function(error, data) {
+//       if (error) {
+//           console.log(error);
+//       } else {
+//           res.send(data)
+//     }
+//   })
+// })
+
+app.delete("/note/delete/:id", function(req, res) {
+  db.Note.deleteOne({ _id: req.params.id})
+  .then(function(dbArticle){
+    res.json(dbArticle)
+  })
+  .catch(function(err){
+    res.json(err);
+  })
+})
+
 // Start the server
 app.listen(PORT, function() {
   console.log("App running on port " + PORT + "!");
